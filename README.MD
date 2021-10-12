@@ -19,7 +19,10 @@ randdir = '/tmp/randomdirxx'
 ### Use command tool on MacOS Big SUR 11.5.2
 [imagemagick](https://imagemagick.org/index.php)
 ``` python
+    fname = 'file.pdf'
+	pngName = 'pngfile.png'
 	cmd='convert -density 192 ' + fname + ' -quality 100 -alpha remove ' + pngName
+	os.sytem(cmd)
 ```
 
 ### Add code delete tmpdir
