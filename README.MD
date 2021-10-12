@@ -10,7 +10,7 @@ randdir = '/tmp/randomdirxx'
 * run your code
 
 ``` bash
-	python-pdf-to-png
+	pdf-to-png
 ```
 
 *
