@@ -2,10 +2,10 @@
 * Change follwoing inside `Main`
 
 ``` python
-	pdfDir='/path/to/pdffile'
+pdfDir='/path/to/pdffile'
 		
-	# Output png file
-    randdir = '/tmp/randomdirxx'
+# Output png file
+randdir = '/tmp/randomdirxx'
 ```
 * run your code
 
