@@ -16,8 +16,8 @@ randdir = '/tmp/randomdirxx'
 *
 ## Split PDF file to pages
 ## Convert first page of PDF file to PNG file
-### Use command tool
-
+### Use command tool on MacOS Big SUR 11.5.2
+(imagemagick)[https://imagemagick.org/index.php]
 ``` python
 	cmd='convert -density 192 ' + fname + ' -quality 100 -alpha remove ' + pngName
 ```
