@@ -1,3 +1,19 @@
+# HOW TO USE
+* Change follwoing inside `Main`
+
+``` python
+	pdfDir='/path/to/pdffile'
+		
+	# Output png file
+    randdir = '/tmp/randomdirxx'
+```
+* run your code
+
+``` bash
+	python-pdf-to-png
+```
+
+*
 ## Split PDF file to pages
 ## Convert first page of PDF file to PNG file
 ### Use command tool
@@ -8,3 +24,4 @@
 
 ### Add code delete tmpdir
 ### Add flag to check whether to override png file
+
