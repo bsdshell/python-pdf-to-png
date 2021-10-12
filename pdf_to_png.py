@@ -37,7 +37,7 @@ print ("len=" + a.toStr(len(ls)))
 #         break   # ONLY the first page
 
 
-def extractPage0PDF(pathPDF, randdir):
+def extractPage0PDF(pathPDF, randdir, isOverridedPNG):
     fname = ".pdf"
     ls = a.readDirRecurveList(pathPDF, fname);
     ran = a.rand(1000, 100000)
@@ -56,7 +56,8 @@ def extractPage0PDF(pathPDF, randdir):
                 fpath = pathPDF + '/' + name + "-0.png"
                 a.pp('fpath=' + fpath)
                 a.pp('randdir=' + randdir)
-                if a.fileExist(fpath) is False:
+                
+                if a.fileExist(fpath) is False or isOverridedPNG:
                     with open(randdir + '/' + name + "-%s.pdf" % i, "wb") as outputStream:
                         output.write(outputStream)
                 else:
@@ -79,12 +80,62 @@ def pdfToPng(randdir):
 def copyPNGTo(randdir, wwwDir):
     cmd='cp -f ' + a.join(randdir, '*.png') + ' ' + wwwDir
     a.run(cmd)
-    
-pdfDir='/Users/aaa/try/dirxx1'
-randdir = '/tmp/randomdirxx'
 
-extractPage0PDF(pdfDir, randdir)
 
-ls = pdfToPng(randdir)
+def getWWWPDFDir():
+    www = a.getEnv('www')
+    pdfPath = a.join(www, 'pdf')
+    return pdfPath
 
-copyPNGTo(randdir, '/Users/aaa/try/dirxx2')
+def deleteTmpRandomDir(randdir):
+    cmd = 'rm -rf ' + randdir
+    a.run(cmd)
+
+def extractPage0PDFCheck(pdfDir, randdir):
+    isOverridedPNG = False
+    overpng = input('Override old png (file-0.png) file under:' + pdfDir + '\n ENTER: yes\n')
+    if overpng == 'yes':
+        isOverridedPNG = True
+    else:
+        print('NOT override png file:' + pdfDir + '\n')
+    extractPage0PDF(pdfDir, randdir, isOverridedPNG)
+
+
+
+# --------------------------------------------------------------------
+# Main here
+# Use following in live App.
+# pdfDir = getWWWPDFDir()
+
+# Input pdf file
+def Main():
+    pdfDir='/Users/aaa/try/dirxx1'
+
+    # Output png file
+    randdir = '/tmp/randomdirxx'
+
+    beg = a.nowSecond()
+    extractPage0PDFCheck(pdfDir, randdir)
+
+    # Use shell command: convert => convert pdf to png file
+    # new png file: file.pdf => file-0.png
+    ls = pdfToPng(randdir)
+
+    # copy newly png file back to pdfDir
+    copyPNGTo(randdir, pdfDir)
+
+    end = a.nowSecond()
+
+    print('time =' + a.toStr(end - beg))
+
+    str = input('Delete ' + randdir + ' Enter: yes\n' )
+    if str == 'yes':
+        deleteTmpRandomDir(randdir)
+        print('Delete ' + randdir)
+    else:
+        print('Do Nothing.')
+
+    # mycmd='rm -rf /tmp/randomdirxx'
+    # a.run(mycmd)
+
+Main()
