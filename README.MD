@@ -25,7 +25,7 @@ randdir = '/tmp/randomdirxx'
 	os.sytem(cmd)
 ```
 * Screen Cast
-(Run Code)[https://www.youtube.com/watch?v=sqa3FG5ZWFE]
+[Run Code](https://www.youtube.com/watch?v=sqa3FG5ZWFE)
 
 ### Add code delete tmpdir
 ### Add flag to check whether to override png file
