@@ -24,6 +24,8 @@ randdir = '/tmp/randomdirxx'
 	cmd='convert -density 192 ' + fname + ' -quality 100 -alpha remove ' + pngName
 	os.sytem(cmd)
 ```
+* Screen Cast
+(Run Code)[https://www.youtube.com/watch?v=sqa3FG5ZWFE]
 
 ### Add code delete tmpdir
 ### Add flag to check whether to override png file
