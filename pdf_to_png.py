@@ -3,7 +3,7 @@
 from PyPDF2 import PdfFileWriter, PdfFileReader
 import AronLib as a
 
-# KEY: split pdf to page, pdf page, split pdf file
+# KEY: split pdf to page, pdf page, split pdf file, pdf to png
 # inputpdf = PdfFileReader(open("/tmp/b.pdf", "rb"))
 
 tryx = '/Library/WebServer/Documents/xfido'
@@ -12,9 +12,6 @@ fname = ".pdf"
 ls = a.readDirRecurveList(pdfpath, fname);
 a.pre (ls)
 print ("len=" + a.toStr(len(ls)))
-
-
-
 
 # NOTE: ONLY generate the first page "-0.png" from PDF file
 # for fn in ls:
@@ -35,8 +32,6 @@ print ("len=" + a.toStr(len(ls)))
 #         else:
 #             a.pre('file Exist=' + fpath)
 #         break   # ONLY the first page
-
-
 def extractPage0PDF(pathPDF, randdir, isOverridedPNG):
     fname = ".pdf"
     ls = a.readDirRecurveList(pathPDF, fname);
@@ -93,24 +88,31 @@ def deleteTmpRandomDir(randdir):
 
 def extractPage0PDFCheck(pdfDir, randdir):
     isOverridedPNG = False
-    overpng = input('Override old png (file-0.png) file under:' + pdfDir + '\n ENTER: yes\n')
+    overpng = input('Override old png (file-0.png) files Under:' + pdfDir + '\n ENTER: yes\n')
     if overpng == 'yes':
         isOverridedPNG = True
     else:
         print('NOT override png file:' + pdfDir + '\n')
     extractPage0PDF(pdfDir, randdir, isOverridedPNG)
 
-
-
 # --------------------------------------------------------------------
 # Main here
 # Use following in live App.
-# pdfDir = getWWWPDFDir()
-
+# NOTE: pdfDir = getWWWPDFDir()
 # Input pdf file
 def Main():
-    pdfDir='/Users/aaa/try/dirxx1'
-
+    # pdfDir='/Users/aaa/try/dirxx1'
+    pdfDir = getWWWPDFDir()
+    print(pdfDir)
+    a.pp("")
+    input_pdfDir = input('\tWhere are your PDF files?\n\tCurrent location => Contain PDF files: ' + a.getPWD() + ' ENTER: yes\n' + '\tOtherwise Default: ' + pdfDir + '\n')
+    a.pp("\t")
+    
+    if input_pdfDir == 'yes':
+        pdfDir = a.getPWD()
+    else:
+        print('Use Default Location: ' + pdfDir)
+    
     # Output png file
     randdir = '/tmp/randomdirxx'
 
@@ -126,14 +128,14 @@ def Main():
 
     end = a.nowSecond()
 
-    print('time =' + a.toStr(end - beg))
+    print('Total Time =' + a.toStr(end - beg) + ' seconds')
 
     str = input('Delete ' + randdir + ' Enter: yes\n' )
     if str == 'yes':
         deleteTmpRandomDir(randdir)
         print('Delete ' + randdir)
     else:
-        print('Do Nothing.')
+        print('Do not delete ' + randdir + '\n')
 
     # mycmd='rm -rf /tmp/randomdirxx'
     # a.run(mycmd)
